@@ -1,12 +1,11 @@
-package com.iab.gdpr.consent.implementation.v1;
+package com.iab.gdpr_android.consent.implementation.v1;
 
 import android.util.Base64;
 
-import com.iab.gdpr.Purpose;
-import com.iab.gdpr.consent.VendorConsent;
-import com.iab.gdpr.consent.VendorConsentDecoder;
-import com.iab.gdpr.exception.VendorConsentParseException;
-import com.iab.gdpr.util.Utils;
+import com.iab.gdpr_android.consent.VendorConsent;
+import com.iab.gdpr_android.consent.VendorConsentDecoder;
+import com.iab.gdpr_android.exception.VendorConsentParseException;
+import com.iab.gdpr_android.util.Utils;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,15 +14,10 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 
-import static com.iab.gdpr.Purpose.*;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -197,15 +191,10 @@ public class ByteBufferBackedVendorConsentTest {
         assertThat(vendorConsent.getAllowedPurposeIds(),is(new HashSet<>(Arrays.asList(1,2,3,4,5,15,24))));
         assertThat(vendorConsent.getAllowedPurposesBits(),is(16253441));
         assertTrue(vendorConsent.isPurposeAllowed(1));
-        assertTrue(vendorConsent.isPurposeAllowed(STORAGE_AND_ACCESS));
         assertTrue(vendorConsent.isPurposeAllowed(2));
-        assertTrue(vendorConsent.isPurposeAllowed(PERSONALIZATION));
         assertTrue(vendorConsent.isPurposeAllowed(3));
-        assertTrue(vendorConsent.isPurposeAllowed(AD_SELECTION));
         assertTrue(vendorConsent.isPurposeAllowed(4));
-        assertTrue(vendorConsent.isPurposeAllowed(CONTENT_DELIVERY));
         assertTrue(vendorConsent.isPurposeAllowed(5));
-        assertTrue(vendorConsent.isPurposeAllowed(MEASUREMENT));
         assertTrue(vendorConsent.isPurposeAllowed(15));
         assertTrue(vendorConsent.isPurposeAllowed(24));
     }

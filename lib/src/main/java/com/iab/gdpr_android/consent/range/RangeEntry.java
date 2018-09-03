@@ -1,6 +1,6 @@
-package com.iab.gdpr.consent.range;
+package com.iab.gdpr_android.consent.range;
 
-import com.iab.gdpr.Bits;
+import com.iab.gdpr_android.Bits;
 
 /**
  * Range entry  of the vendor consent range section. Range entry is a single or range of VendorIds

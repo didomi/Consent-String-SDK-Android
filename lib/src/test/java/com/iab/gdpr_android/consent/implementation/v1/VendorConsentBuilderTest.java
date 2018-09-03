@@ -1,11 +1,10 @@
-package com.iab.gdpr.consent.implementation.v1;
+package com.iab.gdpr_android.consent.implementation.v1;
 
-import com.iab.gdpr.Purpose;
-import com.iab.gdpr.consent.range.RangeEntry;
-import com.iab.gdpr.consent.range.SingleRangeEntry;
-import com.iab.gdpr.consent.range.StartEndRangeEntry;
-import com.iab.gdpr.consent.VendorConsent;
-import com.iab.gdpr.exception.VendorConsentCreateException;
+import com.iab.gdpr_android.consent.range.RangeEntry;
+import com.iab.gdpr_android.consent.range.SingleRangeEntry;
+import com.iab.gdpr_android.consent.range.StartEndRangeEntry;
+import com.iab.gdpr_android.consent.VendorConsent;
+import com.iab.gdpr_android.exception.VendorConsentCreateException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,7 +14,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static com.iab.gdpr.Purpose.*;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
@@ -210,9 +208,9 @@ public class VendorConsentBuilderTest {
         assertThat(vendorConsent.getAllowedPurposeIds(),is(new HashSet<>(Arrays.asList(1, 2, 3))));
         assertThat(vendorConsent.getMaxVendorId(),is(maxVendorId));
 
-        assertTrue(vendorConsent.isPurposeAllowed(STORAGE_AND_ACCESS));
-        assertTrue(vendorConsent.isPurposeAllowed(PERSONALIZATION));
-        assertTrue(vendorConsent.isPurposeAllowed(AD_SELECTION));
+        assertTrue(vendorConsent.isPurposeAllowed(1));
+        assertTrue(vendorConsent.isPurposeAllowed(2));
+        assertTrue(vendorConsent.isPurposeAllowed(3));
 
         assertTrue(vendorConsent.isVendorAllowed(10));
         assertTrue(vendorConsent.isVendorAllowed(150));

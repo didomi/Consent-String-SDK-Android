@@ -1,8 +1,5 @@
-package com.iab.gdpr.consent;
+package com.iab.gdpr_android.consent;
 
-import com.iab.gdpr.Purpose;
-
-import java.time.Instant;
 import java.util.Date;
 import java.util.Set;
 
@@ -22,13 +19,13 @@ public interface VendorConsent {
     int getVersion();
 
     /**
-     * @return the {@link Instant} at which the consent string was created
+     * @return the {@link Date} at which the consent string was created
      */
     Date getConsentRecordCreated();
 
     /**
      *
-     * @return the {@link Instant} at which consent string was last updated
+     * @return the {@link Date} at which consent string was last updated
      */
     Date getConsentRecordLastUpdated();
 
@@ -86,13 +83,6 @@ public interface VendorConsent {
      * @return true if purpose is allowed in this consent, false otherwise
      */
     boolean isPurposeAllowed(int purposeId);
-
-    /**
-     * Check whether specified purpose is allowed
-     * @param purpose purpose to check
-     * @return true if purpose is allowed in this consent, false otherwise
-     */
-    boolean isPurposeAllowed(Purpose purpose);
 
     /**
      * Check whether vendor with specified ID is allowd

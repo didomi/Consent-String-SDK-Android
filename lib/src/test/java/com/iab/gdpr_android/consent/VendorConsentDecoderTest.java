@@ -1,20 +1,19 @@
-package com.iab.gdpr.consent;
+package com.iab.gdpr_android.consent;
 
-import com.iab.gdpr.Bits;
-import com.iab.gdpr.consent.implementation.v1.ByteBufferBackedVendorConsent;
+import com.iab.gdpr_android.Bits;
+import com.iab.gdpr_android.consent.implementation.v1.ByteBufferBackedVendorConsent;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import android.util.Base64;
 
-import static com.iab.gdpr.GdprConstants.VERSION_BIT_OFFSET;
-import static com.iab.gdpr.GdprConstants.VERSION_BIT_SIZE;
+import static com.iab.gdpr_android.ConsentStringConstants.VERSION_BIT_OFFSET;
+import static com.iab.gdpr_android.ConsentStringConstants.VERSION_BIT_SIZE;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.any;

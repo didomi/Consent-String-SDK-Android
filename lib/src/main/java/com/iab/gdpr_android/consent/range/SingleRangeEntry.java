@@ -1,8 +1,8 @@
-package com.iab.gdpr.consent.range;
+package com.iab.gdpr_android.consent.range;
 
-import com.iab.gdpr.Bits;
+import com.iab.gdpr_android.Bits;
 
-import static com.iab.gdpr.GdprConstants.VENDOR_ID_SIZE;
+import static com.iab.gdpr_android.ConsentStringConstants.VENDOR_ID_SIZE;
 
 /**
  * {@link RangeEntry} with single vendor ID

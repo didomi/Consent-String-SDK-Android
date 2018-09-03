@@ -1,19 +1,14 @@
-package com.iab.gdpr.consent.implementation.v1;
+package com.iab.gdpr_android.consent.implementation.v1;
 
-import android.util.Range;
+import com.iab.gdpr_android.Bits;
+import com.iab.gdpr_android.ConsentStringConstants;
+import com.iab.gdpr_android.consent.range.RangeEntry;
+import com.iab.gdpr_android.consent.VendorConsent;
+import com.iab.gdpr_android.exception.VendorConsentCreateException;
 
-import com.iab.gdpr.Bits;
-import com.iab.gdpr.GdprConstants;
-import com.iab.gdpr.Purpose;
-import com.iab.gdpr.consent.range.RangeEntry;
-import com.iab.gdpr.consent.VendorConsent;
-import com.iab.gdpr.exception.VendorConsentCreateException;
-
-import java.time.Instant;
 import java.util.*;
-import java.util.stream.Collectors;
 
-import static com.iab.gdpr.GdprConstants.*;
+import static com.iab.gdpr_android.ConsentStringConstants.*;
 
 /**
  * Builder for version 1 of vendor consent
@@ -257,7 +252,7 @@ public class VendorConsentBuilder {
             }
             bits.setInt(NUM_ENTRIES_OFFSET, NUM_ENTRIES_SIZE, rangeEntries.size());
 
-            int currentOffset = GdprConstants.RANGE_ENTRY_OFFSET;
+            int currentOffset = ConsentStringConstants.RANGE_ENTRY_OFFSET;
 
             for (RangeEntry rangeEntry : rangeEntries) {
                 currentOffset = rangeEntry.appendTo(bits, currentOffset);
