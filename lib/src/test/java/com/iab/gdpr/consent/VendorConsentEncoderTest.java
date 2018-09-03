@@ -1,14 +1,35 @@
 package com.iab.gdpr.consent;
 
+import android.util.Base64;
+
 import com.iab.gdpr.consent.implementation.v1.ByteBufferBackedVendorConsent;
 import com.iab.gdpr.util.Utils;
+
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.powermock.api.mockito.PowerMockito.when;
 
+@RunWith(PowerMockRunner.class)
+@PrepareForTest( { Base64.class })
 public class VendorConsentEncoderTest {
+    @Before
+    public void before() {
+        // Mock Base64.decode
+        PowerMockito.mockStatic(Base64.class);
+        when(Base64.encodeToString(any(), anyInt())).thenAnswer(invocation -> java.util.Base64.getUrlEncoder().withoutPadding().encodeToString((byte[]) invocation.getArguments()[0]));
+        when(Base64.decode(anyString(), anyInt())).thenAnswer(invocation -> java.util.Base64.getUrlDecoder().decode((String) invocation.getArguments()[0]));
+    }
 
     @Test
     public void testEncode() {

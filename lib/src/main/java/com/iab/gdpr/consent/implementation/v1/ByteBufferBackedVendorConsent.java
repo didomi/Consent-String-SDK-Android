@@ -85,11 +85,6 @@ public class ByteBufferBackedVendorConsent implements VendorConsent {
     }
 
     @Override
-    public Set<Purpose> getAllowedPurposes() {
-        return getAllowedPurposeIds().stream().map(Purpose::valueOf).collect(Collectors.toSet());
-    }
-
-    @Override
     public int getAllowedPurposesBits() {
         return bits.getInt(PURPOSES_OFFSET, PURPOSES_SIZE);
     }
