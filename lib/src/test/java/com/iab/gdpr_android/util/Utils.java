@@ -1,6 +1,6 @@
-package com.iab.gdpr.util;
+package com.iab.gdpr_android.util;
 
-import com.iab.gdpr.Bits;
+import com.iab.gdpr_android.Bits;
 
 /**
  * Testing utility functions

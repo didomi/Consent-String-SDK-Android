@@ -1,12 +1,12 @@
-package com.iab.gdpr.consent;
+package com.iab.gdpr_android.consent;
 
-import com.iab.gdpr.Bits;
-import com.iab.gdpr.consent.implementation.v1.ByteBufferBackedVendorConsent;
+import com.iab.gdpr_android.Bits;
+import com.iab.gdpr_android.consent.implementation.v1.ByteBufferBackedVendorConsent;
 
 import android.util.Base64;
 
-import static com.iab.gdpr.GdprConstants.VERSION_BIT_OFFSET;
-import static com.iab.gdpr.GdprConstants.VERSION_BIT_SIZE;
+import static com.iab.gdpr_android.ConsentStringConstants.VERSION_BIT_OFFSET;
+import static com.iab.gdpr_android.ConsentStringConstants.VERSION_BIT_SIZE;
 
 /**
  * {@link VendorConsent} decoder from Base64 string. Right now only version 1 is know, but eventually

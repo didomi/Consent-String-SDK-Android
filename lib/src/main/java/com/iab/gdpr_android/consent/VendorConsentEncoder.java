@@ -1,4 +1,4 @@
-package com.iab.gdpr.consent;
+package com.iab.gdpr_android.consent;
 
 import android.util.Base64;
 

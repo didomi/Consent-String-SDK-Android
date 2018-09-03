@@ -1,11 +1,10 @@
-package com.iab.gdpr;
+package com.iab.gdpr_android;
 
-import java.time.Instant;
 import java.util.Date;
 
-import com.iab.gdpr.exception.VendorConsentCreateException;
-import com.iab.gdpr.exception.VendorConsentException;
-import com.iab.gdpr.exception.VendorConsentParseException;
+import com.iab.gdpr_android.exception.VendorConsentCreateException;
+import com.iab.gdpr_android.exception.VendorConsentException;
+import com.iab.gdpr_android.exception.VendorConsentParseException;
 
 /*
  * since java.util.BitSet is inappropiate to use here--as it reversed the bit order of the consent string
@@ -152,7 +151,7 @@ public class Bits {
     }
 
     /**
-     * returns an {@link Instant} derived from interpreting the given interval on the bit string as long representing
+     * returns an {@link Date} derived from interpreting the given interval on the bit string as long representing
      * the number of demiseconds from the unix epoch
      *
      * @param startInclusive:

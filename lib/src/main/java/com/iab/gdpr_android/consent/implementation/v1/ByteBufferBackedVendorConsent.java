@@ -1,19 +1,16 @@
-package com.iab.gdpr.consent.implementation.v1;
+package com.iab.gdpr_android.consent.implementation.v1;
 
 
-import com.iab.gdpr.Bits;
-import com.iab.gdpr.Purpose;
-import com.iab.gdpr.consent.VendorConsent;
-import com.iab.gdpr.exception.VendorConsentParseException;
+import com.iab.gdpr_android.Bits;
+import com.iab.gdpr_android.consent.VendorConsent;
+import com.iab.gdpr_android.exception.VendorConsentParseException;
 
-import java.time.Instant;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-import static com.iab.gdpr.GdprConstants.*;
+import static com.iab.gdpr_android.ConsentStringConstants.*;
 
 /**
  * Implementation of {@link VendorConsent}. This implementation uses byte buffer (wrapped with {@link Bits})
@@ -98,11 +95,6 @@ public class ByteBufferBackedVendorConsent implements VendorConsent {
     public boolean isPurposeAllowed(int purposeId) {
         if (purposeId < 1 || purposeId > PURPOSES_SIZE) return false;
         return bits.getBit(PURPOSES_OFFSET + purposeId - 1);
-    }
-
-    @Override
-    public boolean isPurposeAllowed(Purpose purpose) {
-        return isPurposeAllowed(purpose.getId());
     }
 
     @Override

@@ -1,9 +1,9 @@
-package com.iab.gdpr.consent;
+package com.iab.gdpr_android.consent;
 
 import android.util.Base64;
 
-import com.iab.gdpr.consent.implementation.v1.ByteBufferBackedVendorConsent;
-import com.iab.gdpr.util.Utils;
+import com.iab.gdpr_android.consent.implementation.v1.ByteBufferBackedVendorConsent;
+import com.iab.gdpr_android.util.Utils;
 
 import org.junit.Before;
 import org.junit.Test;

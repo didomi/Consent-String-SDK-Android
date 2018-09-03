@@ -1,6 +1,6 @@
-package com.iab.gdpr;
+package com.iab.gdpr_android;
 
-public class GdprConstants {
+public class ConsentStringConstants {
     public static final int VENDOR_ENCODING_RANGE = 1;
     public static final int VERSION_BIT_OFFSET = 0;
     public static final int VERSION_BIT_SIZE = 6;
