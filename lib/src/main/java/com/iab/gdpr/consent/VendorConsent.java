@@ -70,12 +70,6 @@ public interface VendorConsent {
 
     /**
      *
-     * @return the set of allowed purposes which are permitted according to this consent string
-     */
-    Set<Purpose> getAllowedPurposes();
-
-    /**
-     *
      * @return an integer equivalent of allowed purpose id bits according to this consent string
      */
     int getAllowedPurposesBits();

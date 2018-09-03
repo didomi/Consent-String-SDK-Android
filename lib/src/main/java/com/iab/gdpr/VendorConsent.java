@@ -1,14 +1,9 @@
 package com.iab.gdpr;
 
-import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Base64;
-import java.util.Base64.Decoder;
-import java.util.Base64.Encoder;
+import android.util.Base64;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.IntStream;
 
 import com.iab.gdpr.exception.GdprException;
 import com.iab.gdpr.exception.VendorConsentCreateException;
@@ -33,9 +28,6 @@ import static com.iab.gdpr.GdprConstants.PURPOSES_SIZE;
  */
 @Deprecated
 public class VendorConsent {
-    private static Decoder decoder = Base64.getUrlDecoder();
-    // As per the GDPR framework guidelines padding should be ommitted
-    private static Encoder encoder = Base64.getUrlEncoder().withoutPadding();
     private final Bits bits;
     // fields contained in the consent string
     private final int version;
@@ -72,13 +64,20 @@ public class VendorConsent {
 
         if (this.vendorEncodingType == GdprConstants.VENDOR_ENCODING_RANGE) {
             this.defaultConsent = builder.defaultConsent;
-            if (builder.rangeEntries.stream().anyMatch(rangeEntry -> rangeEntry.endVendorId > maxVendorId)) {
-                throw new VendorConsentCreateException("VendorId in range entry is greater than Max VendorId");
+            for (RangeEntry rangeEntry: builder.rangeEntries) {
+                if (rangeEntry.endVendorId > maxVendorId) {
+                    throw new VendorConsentCreateException("VendorId in range entry is greater than Max VendorId");
+                }
             }
+
             this.rangeEntries = builder.rangeEntries;
         } else {
             this.bitfield = new ArrayList<>(this.maxVendorId);
-            IntStream.range(0, this.maxVendorId).forEach(i -> this.bitfield.add(false));
+
+            for (int index = 0; index < this.maxVendorId; index++) {
+                this.bitfield.add(false);
+            }
+
             for (int vendorId : builder.vendorsBitField) {
                 if (vendorId > maxVendorId || vendorId < 1) {
                     throw new VendorConsentCreateException("VendorId in bit field is greater than Max VendorId or less than 1");
@@ -162,7 +161,7 @@ public class VendorConsent {
                 ++bitfieldOffset;
             }
         }
-        this.consentString = encoder.encodeToString(bits.toByteArray());
+        this.consentString = Base64.encodeToString(bits.toByteArray(), Base64.URL_SAFE | Base64.NO_PADDING);
     }
 
     /**
@@ -179,7 +178,7 @@ public class VendorConsent {
             if (isNullOrEmpty(consentString)) {
                 throw new VendorConsentParseException("Consent String is empty or null");
             } else {
-                byte[] consentAsBytes = decoder.decode(consentString);
+                byte[] consentAsBytes = Base64.decode(consentString, Base64.URL_SAFE | Base64.NO_PADDING);
                 ConsentStringParser parser = new ConsentStringParser(consentAsBytes);
                 return parser.parse();
             }
@@ -197,7 +196,7 @@ public class VendorConsent {
     }
 
     /**
-     * @return the {@link Instant} at which the consent record was created
+     * @return the {@link Date} at which the consent record was created
      */
     public Date getConsentRecordCreated() {
         return consentRecordCreated;
@@ -205,7 +204,7 @@ public class VendorConsent {
 
     /**
      *
-     * @return the {@link Instant} at which the cookie was last updated
+     * @return the {@link Date} at which the cookie was last updated
      */
     public Date getConsentRecordLastUpdated() {
         return consentRecordLastUpdated;
@@ -367,22 +366,15 @@ public class VendorConsent {
         return version == consent.version && cmpID == consent.cmpID && cmpVersion == consent.cmpVersion
                 && consentScreenID == consent.consentScreenID && vendorListVersion == consent.vendorListVersion
                 && maxVendorId == consent.maxVendorId && vendorEncodingType == consent.vendorEncodingType
-                && defaultConsent == consent.defaultConsent && Objects.equals(bits, consent.bits)
-                && Objects.equals(consentRecordCreated, consent.consentRecordCreated)
-                && Objects.equals(consentRecordLastUpdated, consent.consentRecordLastUpdated)
-                && Objects.equals(consentLanguage, consent.consentLanguage)
-                && Objects.equals(allowedPurposes, consent.allowedPurposes)
-                && Objects.equals(consentString, consent.consentString)
-                && Objects.equals(rangeEntries, consent.rangeEntries)
-                && Objects.equals(integerPurposes, consent.integerPurposes);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(bits, version, consentRecordCreated, consentRecordLastUpdated, cmpID, cmpVersion,
-                consentScreenID, consentLanguage, vendorListVersion, maxVendorId, vendorEncodingType, allowedPurposes,
-                consentString, rangeEntries, defaultConsent, integerPurposes);
+                && defaultConsent == consent.defaultConsent
+                && bits.equals(consent.bits)
+                && consentRecordCreated.equals(consent.consentRecordCreated)
+                && consentRecordLastUpdated.equals(consent.consentRecordLastUpdated)
+                && consentLanguage.equals(consent.consentLanguage)
+                && allowedPurposes.equals(consent.allowedPurposes)
+                && consentString.equals(consent.consentString)
+                && rangeEntries.equals(consent.rangeEntries)
+                && integerPurposes.equals(consent.integerPurposes);
     }
 
     @Override

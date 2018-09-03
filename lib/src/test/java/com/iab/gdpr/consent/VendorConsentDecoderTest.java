@@ -2,16 +2,36 @@ package com.iab.gdpr.consent;
 
 import com.iab.gdpr.Bits;
 import com.iab.gdpr.consent.implementation.v1.ByteBufferBackedVendorConsent;
-import org.junit.Test;
 
-import java.util.Base64;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+
+import android.util.Base64;
 
 import static com.iab.gdpr.GdprConstants.VERSION_BIT_OFFSET;
 import static com.iab.gdpr.GdprConstants.VERSION_BIT_SIZE;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.powermock.api.mockito.PowerMockito.when;
 
+@RunWith(PowerMockRunner.class)
+@PrepareForTest( { Base64.class })
 public class VendorConsentDecoderTest {
+    @Before
+    public void before() {
+        // Mock Base64.decode
+        PowerMockito.mockStatic(Base64.class);
+        when(Base64.encodeToString(any(), anyInt())).thenAnswer(invocation -> java.util.Base64.getUrlEncoder().withoutPadding().encodeToString((byte[]) invocation.getArguments()[0]));
+        when(Base64.decode(anyString(), anyInt())).thenAnswer(invocation -> java.util.Base64.getUrlDecoder().decode((String) invocation.getArguments()[0]));
+    }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNullConsentString() {
@@ -64,9 +84,10 @@ public class VendorConsentDecoderTest {
         // Given: unknown version number in consent string
         final Bits bits = new Bits(new byte[100]);
         bits.setInt(VERSION_BIT_OFFSET, VERSION_BIT_SIZE, 10);
+        String consentString = java.util.Base64.getUrlEncoder().withoutPadding().encodeToString(bits.toByteArray());
 
         // When: decoder is called
-        final VendorConsent vendorConsent = VendorConsentDecoder.fromBase64String(Base64.getUrlEncoder().withoutPadding().encodeToString(bits.toByteArray()));
+        final VendorConsent vendorConsent = VendorConsentDecoder.fromBase64String(consentString);
 
         // Then IllegalStateException exception is thrown
     }

@@ -3,7 +3,7 @@ package com.iab.gdpr.consent;
 import com.iab.gdpr.Bits;
 import com.iab.gdpr.consent.implementation.v1.ByteBufferBackedVendorConsent;
 
-import java.util.Base64;
+import android.util.Base64;
 
 import static com.iab.gdpr.GdprConstants.VERSION_BIT_OFFSET;
 import static com.iab.gdpr.GdprConstants.VERSION_BIT_SIZE;
@@ -13,14 +13,12 @@ import static com.iab.gdpr.GdprConstants.VERSION_BIT_SIZE;
  * this can be extended to support new versions
  */
 public class VendorConsentDecoder {
-
-    private static final Base64.Decoder BASE64_DECODER = Base64.getUrlDecoder();
-
     public static VendorConsent fromBase64String(String consentString) {
         if (isNullOrEmpty(consentString))
             throw new IllegalArgumentException("Null or empty consent string passed as an argument");
 
-        return fromByteArray(BASE64_DECODER.decode(consentString));
+        // TODO: Integration test on encoding/decoding (unit tests are mocked)
+        return fromByteArray(Base64.decode(consentString, Base64.URL_SAFE | Base64.NO_PADDING));
     }
 
     public static VendorConsent fromByteArray(byte[] bytes) {
