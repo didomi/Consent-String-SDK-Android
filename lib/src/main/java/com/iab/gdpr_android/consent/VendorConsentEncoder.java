@@ -12,7 +12,7 @@ public class VendorConsentEncoder {
      * @return Base64 encoded string
      */
     public static String toBase64String(VendorConsent vendorConsent) {
-        return Base64.encodeToString(vendorConsent.toByteArray(), Base64.URL_SAFE | Base64.NO_PADDING);
+        return Base64.encodeToString(vendorConsent.toByteArray(), Base64.URL_SAFE | Base64.NO_PADDING | Base64.NO_WRAP);
     }
 
 }
