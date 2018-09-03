@@ -28,24 +28,22 @@ Framework Technical specifications available at: https://github.com/InteractiveA
 
 ## Installation
 
-Add dependency to your pom.xml
+The SDK is available as the `consent-string-sdk-android` package on jcenter. Make sure that the `jcenter()` repository is enabled in your app then enable the dependency:
 
-```
-<dependency>
-  <groupId>com.conversantmedia.gdpr</groupId>
-  <artifactId>consent-string-sdk-java</artifactId>
-  <version>2.0.2</version>
-</dependency>
+```gradle
+compile 'com.iab:consent-string-sdk-android:1.0.0'
 ```
 
 ## Usage
 
-### Decoding consent string
+### Decoding a consent string
 
 ```
-final VendorConsent vendorConsent = VendorConsentDecoder.fromBase64String(consentString);
+import com.iab.gdpr_android.VendorConsent;
 
-if (vendorConsent.isVendorAllowed(vendorId) && vendorConsent.isPurposeAllowed(STORAGE_AND_ACCESS) {
+VendorConsent vendorConsent = VendorConsentDecoder.fromBase64String(consentString);
+
+if (vendorConsent.isVendorAllowed(vendorId) && vendorConsent.isPurposeAllowed(1) {
    ...
 } else {
    ...
@@ -55,7 +53,9 @@ if (vendorConsent.isVendorAllowed(vendorId) && vendorConsent.isPurposeAllowed(ST
 
 ### Creating vendor consent
 ```
-final VendorConsent vendorConsent = new VendorConsentBuilder()
+import com.iab.gdpr_android.VendorConsent;
+
+VendorConsent vendorConsent = new VendorConsentBuilder()
         .withConsentRecordCreatedOn(now)
         .withConsentRecordLastUpdatedOn(now)
         .withCmpID(cmpId)
@@ -73,6 +73,8 @@ final VendorConsent vendorConsent = new VendorConsentBuilder()
 
 ### Encoding vendor consent to string
 ```
+import com.iab.gdpr_android.VendorConsentEncoder;
+
 final String base64String = VendorConsentEncoder.toBase64String(vendorConsent); 
 ```
 
@@ -80,8 +82,8 @@ final String base64String = VendorConsentEncoder.toBase64String(vendorConsent);
 
 Use Gradle command to build the project
 ```
-git clone https://github.com/InteractiveAdvertisingBureau/Consent-String-SDK-Java.git
-cd  Consent-String-SDK-Java
+git clone https://github.com/InteractiveAdvertisingBureau/Consent-String-SDK-Android.git
+cd  Consent-String-SDK-Android
 ./gradlew build
 ```
 
@@ -97,11 +99,14 @@ We use following branching setup
 1. Make sure there is a unit test for each added feature. If pull request is for bug fix, create a unit test that would trigger a bug
 1. Make sure **all** tests pass
 1. Update this document if usage is changing
- 
 
-## Versioning
+## Releasing
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/InteractiveAdvertisingBureau/GDPR-Transparency-and-Consent-Framework/tags). 
+The package is stored on bintray and linked to jcenter. To create a new release, do the following:
+
+1. Update the library version in `lib/build.gradle`
+1. Run the gradle tasks `clean install` to prepare the release
+1. Run the gradle task `bintrayUpload` to upload the new release
 
 ## About 
 
