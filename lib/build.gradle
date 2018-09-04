@@ -47,7 +47,7 @@ ext {
     bintrayRepo = 'consent-string-sdk-android'
     bintrayName = 'consent-string-sdk-android'
 
-    publishedGroupId = 'com.iab'
+    publishedGroupId = 'com.iab.gdpr_android'
     libraryName = 'Consent String SDK Android'
     artifact = 'gdpr_android'
 
