@@ -42,7 +42,7 @@ compile 'com.iab.gdpr_android:gdpr_android:1.0.0'
 <dependency>
   <groupId>com.iab.gdpr_android</groupId>
   <artifactId>gdpr_android</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <type>pom</type>
 </dependency>
 ```
